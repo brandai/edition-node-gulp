@@ -26,5 +26,10 @@
   "license": "MIT",
   "engines": {
     "node": ">=5.0"
+  },
+  "devDependencies": {
+    "gulp-decompress": "^2.0.0",
+    "gulp-downloader": "^1.0.4",
+    "gulp-rename": "^1.2.2"
   }
 }

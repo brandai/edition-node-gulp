@@ -196,3 +196,39 @@ gulp.task('patternlab:connect', gulp.series(function(done) {
 gulp.task('default', gulp.series('patternlab:build'));
 gulp.task('patternlab:watch', gulp.series('patternlab:build', watch));
 gulp.task('patternlab:serve', gulp.series('patternlab:build', 'patternlab:connect', watch));
+
+
+/******************************************************
+* BRANDAI TASKS
+******************************************************/
+var download = require('gulp-downloader');
+var decompress = require('gulp-decompress');
+var rename = require('gulp-rename');
+
+// Imported from Brand.ai
+var brandAIHost = 'http://brandai-assets-prod-1.us-east-1.elasticbeanstalk.com/'; //'https://assets.brand.ai/';
+var brandAiPath = argv.organization  + '/' + argv.styleguide;
+
+var jsonURL = brandAIHost + brandAiPath + '/style-data.json?v=2&' + 'key='+argv.sharedKey;
+var iconsURL = brandAIHost + brandAiPath + '/icons.zip?' + 'key='+argv.sharedKey;
+var imagesURL = brandAIHost + brandAiPath + '/images.zip?' + 'key='+argv.sharedKey;
+
+gulp.task('brandai:styles', function(done){
+  download(jsonURL)
+    .pipe(rename('data.json'))
+    .pipe(gulp.dest('source/_data/'));
+  done();
+});
+
+gulp.task('brandai:icons', function(){
+  return download(iconsURL).pipe(decompress()).pipe(gulp.dest('source/images/icons'));
+});
+
+gulp.task('brandai:images', function(){
+  return download(imagesURL)
+    .pipe(decompress()).pipe(gulp.dest('source/images'));
+});
+
+gulp.task('brandai:download-images', gulp.series('brandai:icons', 'brandai:images', function(done){
+  done();
+}));
