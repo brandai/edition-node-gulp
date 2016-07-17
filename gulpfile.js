@@ -154,7 +154,8 @@ function watch() {
     path.resolve(paths().source.annotations + '/*')
   ].concat(getTemplateWatches());
 
-  gulp.watch(patternWatches).on('change', gulp.series(build, reload));
+  // gulp.watch(patternWatches, gulp.series(build, reload));
+  gulp.watch(patternWatches).on('all', gulp.series(build, reload));
 }
 
 gulp.task('patternlab:connect', gulp.series(function(done) {
