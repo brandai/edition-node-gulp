@@ -207,7 +207,7 @@ var decompress = require('gulp-decompress');
 var rename = require('gulp-rename');
 
 // Imported from Brand.ai
-var brandAIHost = 'http://brandai-assets-prod-1.us-east-1.elasticbeanstalk.com/'; //'https://assets.brand.ai/';
+var brandAIHost = 'https://assets.brand.ai/';
 var brandAiPath = argv.organization  + '/' + argv.styleguide;
 
 var jsonURL = brandAIHost + brandAiPath + '/style-data.json?v=2&' + 'key='+argv.sharedKey;
